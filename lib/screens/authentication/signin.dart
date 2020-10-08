@@ -1,3 +1,4 @@
+
 import 'package:fire_base/screens/authentication/authentication.dart';
 import 'package:fire_base/screens/authentication/register.dart';
 import 'package:fire_base/services/auth.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-
+import 'package:fire_base/shared/constants.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -23,29 +24,45 @@ class _SignInState extends State<SignIn> {
   bool isloading= false;
   String email=' ';
   String pass=' ';
+  String wrong_emailorpass='';
   Widget build(BuildContext context) {
     final user=Provider.of<User>(context);
 
-    return Scaffold(
+    return
+        Scaffold(
+          backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.brown[500],
-        title: Text("Where's My Coffee",
+        title:  SafeArea(child: Text("Where's My Coffee",
         style: TextStyle(
             fontSize: 25,
           fontFamily: 'IndieFlower',
           fontWeight: FontWeight.bold,
 
-        ),),
+        ),)),
         elevation: 0.0,
         centerTitle: true,
       ),
-      body: Center(
+      body: Stack(
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 500, 0, 0),
+            child: Image(
+              height: 100,
+              width: 350,
+              image: AssetImage('assets/happy.jpg'),
+            ),
+          ),
+        ),
+       Center(
         child: Column(
           children:[
             Form(
               key: _key,
               child: Column(
                 children: [
+                  SizedBox(height: 5,),
                   TextFormField(
                     validator: (val)=> val.isEmpty ? 'Enter Email': null,
                     onChanged: (val){
@@ -60,6 +77,11 @@ class _SignInState extends State<SignIn> {
                     ),
                     decoration: InputDecoration(
                     labelText: 'Email',
+                    fillColor: Colors.white,
+                    filled: true,
+                    enabledBorder: input_text_decoration_variable_for_non_focus,
+                      focusedBorder:input_text_decoration_variable_for_focus,
+
                     labelStyle: TextStyle(
                     fontSize: 25,
                     fontFamily: 'IndieFlower',
@@ -83,6 +105,10 @@ class _SignInState extends State<SignIn> {
                   ),
                         decoration: InputDecoration(
                                 labelText: 'Password',
+                          fillColor: Colors.white,
+                          filled: true,
+                                enabledBorder: input_text_decoration_variable_for_non_focus,
+                                focusedBorder: input_text_decoration_variable_for_focus,
                                 labelStyle: TextStyle(
                                      fontSize: 25,
                                      fontFamily: 'IndieFlower',
@@ -99,6 +125,7 @@ class _SignInState extends State<SignIn> {
               RaisedButton(
                 color: Colors.brown[200],
                 onPressed: () async {
+                  FocusScope.of(context).unfocus();
                   if(_key.currentState.validate()){
                     setState(() {
                       isloading=true;
@@ -106,6 +133,10 @@ class _SignInState extends State<SignIn> {
                    dynamic result= await _authService.SignInwithEmailPass(email, pass);
                    if( result ==null){
                       print('invalidity occured while signing in');
+                      setState(() {
+                        isloading=false;
+                        wrong_emailorpass=' Wrong Email or password';
+                      });
                    }
                   }
 
@@ -155,7 +186,8 @@ class _SignInState extends State<SignIn> {
             ],
           ),
         ),
-
+        Center(child: Text(wrong_emailorpass, style: TextStyle( color: Colors.red, fontFamily: 'IndieFlower', fontSize: 15),)),
+            SizedBox(height: 4,),
             RichText(
             text: TextSpan(
     style: TextStyle(color: Colors.brown[800], fontFamily: 'IndieFLower'),
@@ -177,7 +209,10 @@ class _SignInState extends State<SignIn> {
         SizedBox(height:15),
         isloading ? SpinKitWave(color: Colors.brown[500], size: 50,): SizedBox(height: 50)],
         ),
-      )
+      ),
+
+      ]),
+
 
     );
   }

@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fire_base/shared/constants.dart';
+
 
 class Register extends StatefulWidget {
   @override
@@ -39,12 +41,14 @@ class _RegisterState extends State<Register> {
                 key: _key,
                 child: Column(
                   children: [
+                    SizedBox(height: 3,),
                     TextFormField(
                         onChanged: (val){
                           setState(() {
                             email=val;
                           });
                         },
+                        validator: (val)=> val.isNotEmpty ? null: "Enter a Write Email",
                         style: TextStyle(
                           fontFamily: 'IndieFlower',
                           color: Colors.brown[800],
@@ -52,6 +56,8 @@ class _RegisterState extends State<Register> {
                         ),
                         decoration: InputDecoration(
                           labelText: 'Email',
+                          enabledBorder: input_text_decoration_variable_for_non_focus,
+                            focusedBorder: input_text_decoration_variable_for_focus,
                           labelStyle: TextStyle(
                               fontSize: 25,
                               fontFamily: 'IndieFlower',
@@ -74,6 +80,8 @@ class _RegisterState extends State<Register> {
 
                         ),
                         decoration: InputDecoration(
+                          enabledBorder: input_text_decoration_variable_for_non_focus,
+                          focusedBorder: input_text_decoration_variable_for_focus,
                           labelText: 'Password',
                           labelStyle: TextStyle(
                               fontSize: 25,
@@ -93,6 +101,8 @@ class _RegisterState extends State<Register> {
 
                         ),
                         decoration: InputDecoration(
+                          enabledBorder: input_text_decoration_variable_for_non_focus,
+                          focusedBorder: input_text_decoration_variable_for_focus,
                           labelText: 'Confirm Password',
                           labelStyle: TextStyle(
                               fontSize: 25,
