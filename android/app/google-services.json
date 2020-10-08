@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "338184505909",
+    "firebase_url": "https://where-s-my-coffee.firebaseio.com",
+    "project_id": "where-s-my-coffee",
+    "storage_bucket": "where-s-my-coffee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338184505909:android:b19168bd69edbc4b42ff7c",
+        "android_client_info": {
+          "package_name": "com.Megamind.fire_base"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "338184505909-kqp8g6b61iiuh0tp39b5il3u4ejbgorg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGmAW8bml3bBQ6abLsvbIyguqKRpEC1aY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "338184505909-kqp8g6b61iiuh0tp39b5il3u4ejbgorg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
