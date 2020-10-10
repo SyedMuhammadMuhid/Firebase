@@ -1,4 +1,5 @@
 
+import 'package:fire_base/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService{
@@ -15,6 +16,8 @@ Future SigninAnon() async {
   try{
   UserCredential result= await _auth.signInAnonymously();
   User user= result.user;
+// creating document for the user by its uid
+  Database(uid:user.uid).Set_User_Data('New Coffee Freak', 0 ,'0', 100);
   return user;
   }
   catch(e){
@@ -27,6 +30,7 @@ Future SignUpwithEmailPass(String email, String pass) async{
     try{
      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: pass);
      User user= result.user;
+     Database(uid:user.uid).Set_User_Data('New Coffee Freak', 0 ,'0', 100);
      return user;
     }
     catch(e){

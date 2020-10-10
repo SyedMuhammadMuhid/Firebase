@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_base/screens/little_menu.dart';
 import 'package:fire_base/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fire_base/services/database.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,31 +13,34 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.brown[200],
-      appBar: AppBar(
-        actions: <Widget>[
-          PopupMenuButton<String>(
-            onSelected: kick_me,
-            itemBuilder: (BuildContext context){
-              return LittleMenu().choices.map((String choice){
-                return PopupMenuItem<String>(child:Text(choice), value: choice,);
-              }).toList();
-            },
-          )
+    return StreamProvider<QuerySnapshot>.value(
+      value: Database().coffee,
+      child: Scaffold(
+        backgroundColor: Colors.brown[200],
+        appBar: AppBar(
+          actions: <Widget>[
+            PopupMenuButton<String>(
+              onSelected: kick_me,
+              itemBuilder: (BuildContext context){
+                return LittleMenu().choices.map((String choice){
+                  return PopupMenuItem<String>(child:Text(choice), value: choice,);
+                }).toList();
+              },
+            )
 
-         // IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: Colors.white, size: 25,),),
-          //IconButton(onPressed: (){}, icon: Icon(Icons.exit_to_app,color: Colors.white, size: 25,),),
-        ],
-        backgroundColor: Colors.brown[500],
-        centerTitle: true,
-        title: Text("Where's My Coffee",
-          style: TextStyle(
-            fontSize: 25,
-            fontFamily: 'IndieFlower',
-            fontWeight: FontWeight.bold,
+           // IconButton(onPressed: (){}, icon: Icon(Icons.edit,color: Colors.white, size: 25,),),
+            //IconButton(onPressed: (){}, icon: Icon(Icons.exit_to_app,color: Colors.white, size: 25,),),
+          ],
+          backgroundColor: Colors.brown[500],
+          centerTitle: true,
+          title: Text("Where's My Coffee",
+            style: TextStyle(
+              fontSize: 25,
+              fontFamily: 'IndieFlower',
+              fontWeight: FontWeight.bold,
 
-          ),),
+            ),),
+        ),
       ),
     );}
 

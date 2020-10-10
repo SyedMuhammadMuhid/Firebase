@@ -2,6 +2,7 @@
 import 'package:fire_base/screens/authentication/authentication.dart';
 import 'package:fire_base/screens/authentication/register.dart';
 import 'package:fire_base/services/auth.dart';
+import 'package:fire_base/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -170,6 +171,7 @@ class _SignInState extends State<SignIn> {
                   else{
                     print('the anonymous sign in passed');
                     print (result.uid);
+                   // Database(result.uid);
                   }
                 },
                 icon: Icon(Icons.tag_faces, size: 28,color: Colors.white,),
