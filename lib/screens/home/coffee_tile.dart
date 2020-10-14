@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fire_base/screens/models/coffee.dart';
+import 'package:fire_base/screens/home/edit_form.dart';
 
 class CoffeeTile extends StatelessWidget {
 
@@ -7,6 +8,7 @@ class CoffeeTile extends StatelessWidget {
    CoffeeTile({this.coffee});
   @override
   Widget build(BuildContext context) {
+    //EditForm(coffeeinfo: coffee,);
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
       child: Card(

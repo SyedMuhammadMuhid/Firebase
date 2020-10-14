@@ -15,6 +15,8 @@ class _CoffeeListState extends State<CoffeeList> {
   @override
   Widget build(BuildContext context) {
     final coffee_data=Provider.of<List<Coffee>>(context);
+    int size;
+    if(coffee_data.length==null){ size= 0;} else{size=coffee_data.length;}
 
 /*coffee_data.forEach((element) {
   print(element.Username);
@@ -24,7 +26,7 @@ class _CoffeeListState extends State<CoffeeList> {
   print(element.CoffeeName);
 });*/
     return ListView.builder(
-      itemCount: coffee_data.length,
+      itemCount: size,
         itemBuilder: (context, index){
           return CoffeeTile(coffee: coffee_data[index]);
         },

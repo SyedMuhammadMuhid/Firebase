@@ -1,9 +1,15 @@
+
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_base/screens/little_menu.dart';
 import 'package:fire_base/screens/models/coffee.dart';
+import 'package:fire_base/screens/models/user.dart';
 import 'package:fire_base/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fire_base/services/database.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:fire_base/screens/home/coffee_list.dart';
 
@@ -15,10 +21,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
+  FToast fToast;
+  bool Deleted =false;
+  int stopper=0;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
   @override
   Widget build(BuildContext context) {
-
+    final user=Provider.of<User>(context);
+    
    void _showEdit()
     {
 showModalBottomSheet(context: context, builder: (context){
@@ -35,10 +51,44 @@ showModalBottomSheet(context: context, builder: (context){
       if(choice=='Sign Out'){
         await _auth.Signout();
       }
-      else if(choice=='Edit'){
+      else if(choice=='Edit'&& Deleted==false){
         _showEdit();
       }
+      else if(choice=='Edit'&& Deleted==true){
+
+        Widget toast = Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25.0),
+            color: Colors.redAccent,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+              Text("First Add A Coffee", style: TextStyle(color: Colors.white, fontFamily: 'IndieFLower',fontSize: 20),),
+              SizedBox(width: 12,),
+              Icon(Icons.arrow_forward,color: Colors.white,)
+            ],
+          ),
+        );
+
+
+        fToast.showToast(
+          child: toast,
+          gravity: ToastGravity.BOTTOM,
+          toastDuration: Duration(seconds: 2),
+            positionedToastBuilder: (context, child) {
+              return Positioned(
+                child: child,
+                top: 615.0,
+                left: 75.0,
+              );
+            }
+        );
+      }
     }
+
 
 
 
@@ -71,6 +121,26 @@ showModalBottomSheet(context: context, builder: (context){
             ),),
         ),
         body: CoffeeList(),
+
+        floatingActionButton: FloatingActionButton(
+
+          backgroundColor: Deleted==false? Colors.redAccent: Colors.amber,
+          child: Icon(Deleted==false? Icons.delete : Icons.add),
+          onPressed: (){
+            setState(() {
+            if(Deleted==false) {
+                Deleted = !Deleted;
+                Database(uid: user.uid).Delete_User_Entry();
+            }
+            else {
+                Deleted = !Deleted;
+               Database(uid: user.uid).Set_User_Data('New Coffee Freak', 0 ,'0', 100,'Capichino');
+            }
+  });
+          },
+
+         // style: TextStyle(color: Colors.white, fontSize: 25),),
+        ),
       ),
     );
 
