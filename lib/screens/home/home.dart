@@ -1,6 +1,4 @@
-
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_base/screens/little_menu.dart';
 import 'package:fire_base/screens/models/coffee.dart';
@@ -22,8 +20,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   FToast fToast;
-  bool Deleted =false;
-  int stopper=0;
+
 @override
   void initState() {
     // TODO: implement initState
@@ -31,8 +28,10 @@ class _HomeState extends State<Home> {
     fToast = FToast();
     fToast.init(context);
   }
+  bool Deleted=true;
   @override
   Widget build(BuildContext context) {
+
     final user=Provider.of<User>(context);
     
    void _showEdit()
